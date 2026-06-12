@@ -8,6 +8,37 @@ page.banner_mask_alpha = theme.index.banner_mask_alpha
 %>
 
 <h1 style="display: none"><%= config.title %></h1>
+
+<!-- 统计卡片 -->
+<div class="stats-bar">
+  <div class="stats-card">
+    <div class="stats-number">5年</div>
+    <div class="stats-label">开发经验</div>
+  </div>
+  <div class="stats-card">
+    <div class="stats-number">7个</div>
+    <div class="stats-label">项目经历</div>
+  </div>
+  <div class="stats-card">
+    <div class="stats-number">30+</div>
+    <div class="stats-label">技术技能</div>
+  </div>
+</div>
+
+<!-- 简短介绍 -->
+<div class="home-intro">
+  <div class="home-intro-content">
+    <p>👋 专注 <strong>Vue / React 全栈</strong> 与 <strong>AI 前端应用</strong>开发，具备从 0 到 1 搭建大型项目的能力。精通大模型对接、RAG 知识库、SSE 流式交互等 AI 前端技术。</p>
+    <a href="/about/" class="intro-link">了解更多 →</a>
+  </div>
+</div>
+
+<!-- 文章列表 -->
+<div class="post-list-header">
+  <h2>📝 最新文章</h2>
+  <a href="/archives/">查看全部 →</a>
+</div>
+
 <% page.posts.each(function (post) { %>
   <div class="row mx-auto index-card">
     <% var post_url = url_for(post.path), index_img = post.index_img || theme.post.default_index_img %>
@@ -51,11 +82,12 @@ page.banner_mask_alpha = theme.index.banner_mask_alpha
           </div>
         <% } %>
         <% if (theme.index.post_meta.tag && post.tags.length > 0) { %>
-          <div class="post-meta">
+          <div class="post-meta index-tags">
             <i class="iconfont icon-tags"></i>
-            <% post.tags.each(function(tag){ %>
+            <% var tagCount = 0; post.tags.each(function(tag){ if(tagCount < 5) { %>
               <a href="<%= url_for(tag.path) %>">#<%- tag.name %></a>
-            <% }) %>
+            <% tagCount++; } }) %>
+            <% if(post.tags.length > 5) { %><span>...</span><% } %>
           </div>
         <% } %>
       </div>
